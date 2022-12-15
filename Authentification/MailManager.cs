@@ -15,7 +15,7 @@ namespace WPFAuthorization
                 mySmtpClient.EnableSsl = true;
 
                 System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential
-                ("b.koljabai@taimas-group.kz", "123qweQWE");
+                ("b.koljabai@taimas-group.kz", "1Je5jDjhGCP4WukqrDVJ");
                 mySmtpClient.Credentials = basicAuthenticationInfo;
 
                 MailAddress fromAddress = new MailAddress("b.koljabai@taimas-group.kz", "Erkebulan");

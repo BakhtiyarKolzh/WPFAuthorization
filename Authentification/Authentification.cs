@@ -131,7 +131,7 @@ namespace WPFAuthorization
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Error.Data not accepted.Contact support.");
+                    MessageBox.Show("Error.Data not accepted. Contact support.");
                 }
             }
         }
