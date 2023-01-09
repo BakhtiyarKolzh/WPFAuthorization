@@ -29,6 +29,7 @@ namespace WPFAuthorization
                 {
                     this.Hide();
                     this.Close();
+
                 }
                 else
                 {

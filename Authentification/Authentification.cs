@@ -68,7 +68,7 @@ namespace WPFAuthorization
                     }
                     catch (Exception ex)
                     {
-                        Debug.Print("Error: {0}" + ex.Message);
+                        Debug.Print("Error: {0}" + ex.ToString());
                     }
                     finally
                     {

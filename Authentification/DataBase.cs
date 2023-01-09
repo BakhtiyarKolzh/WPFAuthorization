@@ -4,8 +4,8 @@ namespace WPFAuthorization
 {
     internal class DataBase
     {
-        SqlConnection sqlConnection = new SqlConnection(@"Data Source=DESKTOP-P8VS63C\SQLEXPRESS; 
-                                                            Initial Catalog=AuthorizationDB; Integrated Security=True");
+        SqlConnection sqlConnection = new SqlConnection(@"Data Source=192.168.103.45, 1433; 
+                                                            Initial Catalog=AuthorizationDB; User Id = Administrator; Password = 123qweQWE");
 
         public void OpenConnection()
         {
