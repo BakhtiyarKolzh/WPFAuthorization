@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 
+
 namespace WPFAuthorization
 {
 
@@ -79,8 +80,11 @@ namespace WPFAuthorization
                 Debug.Print("IsValidResult!");
                 var mail = new MailManager();
                 string serialNumber = HardDriveInfo.GetMainHardSerialNumber();
-                Authentification.RegistrationInDataBase(firstName, lastName, email, serialNumber);
-                mail.GetDataFromMail(firstName, lastName, email);
+                if (Authentification.RegistrationInDataBase(firstName, lastName, email, serialNumber))
+                {
+                    var password = PasswordClient.GetPasswordFromDataBase(email);
+                    mail.SendDatatoMail(email, password);
+                }
             }
             else
             {

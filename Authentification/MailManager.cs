@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Text;
 
 namespace WPFAuthorization
 {
     internal sealed class MailManager
     {
-
-        internal void GetDataFromMail(string firstName, string lastName, string email)
+        public void SendDatatoMail(string email, string data)
         {
+            string mailAddress = "b.koljabai@taimas-group.kz";
             try
             {
                 SmtpClient mySmtpClient = new SmtpClient("smtp.mail.ru");
@@ -15,18 +16,23 @@ namespace WPFAuthorization
                 mySmtpClient.EnableSsl = true;
 
                 System.Net.NetworkCredential basicAuthenticationInfo = new System.Net.NetworkCredential
-                ("b.koljabai@taimas-group.kz", "1Je5jDjhGCP4WukqrDVJ");
+                (mailAddress, "1Je5jDjhGCP4WukqrDVJ");
                 mySmtpClient.Credentials = basicAuthenticationInfo;
 
-                MailAddress fromAddress = new MailAddress("b.koljabai@taimas-group.kz", "Erkebulan");
-                MailAddress toAddress = new MailAddress("b.koljabai@taimas-group.kz");
+                MailAddress fromAddress = new MailAddress(mailAddress, "Taimas");
+                MailAddress toAddress = new MailAddress(email);
                 MailMessage message = new MailMessage(fromAddress, toAddress);
 
-                string regValues = $"FirstName is {firstName}, LastName is {lastName}, Email is {email}";
-                message.Body = regValues;
+                PasswordClient.GetPasswordFromDataBase(email);
 
-                message.Subject = "New User Data";
+                StringBuilder stringBuilder= new StringBuilder();
+                stringBuilder.AppendLine($"Password is {data}");
+                stringBuilder.AppendLine($"Email is {email}");
+
+                message.Body = stringBuilder.ToString();
+                message.Subject = "Client password";
                 mySmtpClient.Send(message);
+                stringBuilder.Clear();
             }
             catch (SmtpException ex)
             {

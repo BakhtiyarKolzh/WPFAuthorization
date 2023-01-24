@@ -27,7 +27,6 @@ namespace WPFAuthorization
             return IsActivate;
         }
 
-
         public static bool ValidateActivationDataBase(bool isactivatedfield, string loginfield, string passwordfield)
         {
             string queryExpression = $"Select id, IsActivated, Email, Password from Users where IsActivated='{isactivatedfield}' and Email= '{loginfield}' and Password='{passwordfield}'";
@@ -104,15 +103,16 @@ namespace WPFAuthorization
         }
 
 
-        public static void RegistrationInDataBase(string firstName, string lastName, string email, string serialNumber)
+        public static bool RegistrationInDataBase(string firstName, string lastName, string email, string serialNumber)
         {
             string queryString = $"insert into Users (FirstName, LastName, Email, SerialNumber) " +
                 $"Values ('{firstName}', '{lastName}','{email}', '{serialNumber}')";
 
+            bool result = false;
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Data filled out incorrectly");
-                return;
+                return result;
             }
 
             DataBase database = new DataBase();
@@ -125,6 +125,7 @@ namespace WPFAuthorization
                     conection.Open();
                     if (command.ExecuteNonQuery() == 1)
                     {
+                        result = true;
                         MessageBox.Show("Data sent successfully. Please expect a message with an attached password " +
                             "within 24 hours from Erkebulan@mail.ru");
                     }
@@ -134,6 +135,8 @@ namespace WPFAuthorization
                     MessageBox.Show("Error.Data not accepted. Contact support.");
                 }
             }
+
+            return result;
         }
 
 

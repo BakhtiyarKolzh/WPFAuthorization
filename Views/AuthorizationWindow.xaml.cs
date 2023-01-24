@@ -15,6 +15,8 @@ namespace WPFAuthorization
             InitializeComponent();
         }
 
+
+        // Enter to system
         private void SignIN_Click(object sender, RoutedEventArgs e)
         {
             Dispatcher.CurrentDispatcher.Invoke(() =>
@@ -27,9 +29,7 @@ namespace WPFAuthorization
 
                 if (ValidateResult)
                 {
-                    this.Hide();
                     this.Close();
-
                 }
                 else
                 {
@@ -46,9 +46,6 @@ namespace WPFAuthorization
             var window = new RegistrationWindow();
             window.Show();
             this.Close();
-
-
-
         }
     }
 }

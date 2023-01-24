@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Threading;
 
+
 namespace WPFAuthorization
 {
     public partial class RegistrationWindow : Window
@@ -18,7 +19,6 @@ namespace WPFAuthorization
             Dispatcher.CurrentDispatcher.Invoke(() =>
             {
                 vm.RegistrationCommandHandler();
-                this.Hide();
                 this.Close();
             });
         }
