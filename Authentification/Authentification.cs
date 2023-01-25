@@ -131,7 +131,7 @@ namespace WPFAuthorization
                     {
                         result = true;
                         MessageBox.Show("Data sent successfully. Please expect a message with an attached password " +
-                            "within 24 hours from Erkebulan@mail.ru");
+                            "within 24 hours");
                     }
                 }
                 catch (Exception)

