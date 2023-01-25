@@ -60,10 +60,10 @@
                     Margin="10,20,10,10" 
                     Click="Registration_Click" 
                     Background="#FF959C98" FontFamily="Arial"/>
-            <Label Content="Erkebulan@mail.ru" 
+            <Label Content="Taimas Company" 
                    Background="{x:Null}" 
                    BorderBrush="Black" FontSize="10" 
-                   FontFamily="Arial Narrow" Width="90" 
+                   FontFamily="Arial Narrow" Width="73" 
                    Margin="5,35,1,0" 
                    Foreground="#FF1269CA" Height="25" 
                    HorizontalAlignment="Right"/>

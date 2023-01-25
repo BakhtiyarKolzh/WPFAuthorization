@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
 
 
@@ -24,11 +23,13 @@ namespace WPFAuthorization
                 bool isactivatedfield = true;
                 string loginfield = LoginField.Text;
                 string passwordfield = PasswordField.Password;
+                string serialNumber = HardDriveInfo.GetMainHardSerialNumber();
 
-                ValidateResult = Authentification.ValidateActivationDataBase(isactivatedfield, loginfield, passwordfield);
+                ValidateResult = Authentification.ValidateActivationDataBase(isactivatedfield, loginfield, passwordfield, serialNumber);
 
                 if (ValidateResult)
                 {
+                    VersionPlagin.SendVersion(loginfield);
                     this.Close();
                 }
                 else

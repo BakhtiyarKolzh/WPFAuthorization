@@ -11,25 +11,25 @@ namespace WPFAuthorization
     {
         private static readonly string connectionString = Properties.Settings.Default.DataConnectionString;
 
-        public static bool IsActivate { get; internal set; } = Properties.Settings.Default.IsActivated;
+        public static bool IsActivated { get; internal set; } = Properties.Settings.Default.IsActivated;
         private static string Password { get; set; } = Properties.Settings.Default.Password;
         private static string Email { get; set; } = Properties.Settings.Default.Email;
-
+        private static string SerialNumber { get; set; } = Properties.Settings.Default.SerialNumber;
 
         public static bool ValidateActivation()
         {
             Properties.Settings.Default.Upgrade();
-            if (!IsActivate)
+            if (!IsActivated)
             {
                 AuthorizationWindow wnd = new AuthorizationWindow();
                 wnd.Show();
             }
-            return IsActivate;
+            return IsActivated;
         }
 
-        public static bool ValidateActivationDataBase(bool isactivatedfield, string loginfield, string passwordfield)
+        public static bool ValidateActivationDataBase(bool isactivatedfield, string loginfield, string passwordfield, string serialNumber)
         {
-            string queryExpression = $"Select id, IsActivated, Email, Password from Users where IsActivated='{isactivatedfield}' and Email= '{loginfield}' and Password='{passwordfield}'";
+            string queryExpression = $"Select id, IsActivated, Email, Password, SerialNumber from Users where IsActivated='{isactivatedfield}' and Email= '{loginfield}' and Password='{passwordfield}' and SerialNumber='{serialNumber}'";
             DataBase database = new DataBase();
             using (SqlConnection connection = database.GetConnection())
             {
@@ -43,22 +43,26 @@ namespace WPFAuthorization
                         adapter.SelectCommand = command;
                         adapter.Fill(table);
 
-                        IsActivate = false;
+                        IsActivated = false;
                         Email = String.Empty;
                         Password = String.Empty;
+                        SerialNumber = String.Empty;
+
                         StringBuilder builder = new StringBuilder();
                         foreach (DataRow row in table.Rows)
                         {
                             object[] items = row.ItemArray;
-                            if (items.Length == 4)
+                            if (items.Length == 5)
                             {
-                                IsActivate = row.Field<bool>("IsActivated");
+                                IsActivated = row.Field<bool>("IsActivated");
                                 Password = row.Field<string>("Password");
                                 Email = row.Field<string>("Email");
+                                SerialNumber = row.Field<string>("SerialNumber");
 
-                                builder.AppendLine($"IsActivated: " + IsActivate);
+                                builder.AppendLine($"IsActivated: " + IsActivated);
                                 builder.AppendLine($"Password: " + Password);
                                 builder.AppendLine($"Email: " + Email);
+                                builder.AppendLine($"SerialNumber: " + SerialNumber);
 
                                 Debug.Print(builder.ToString());
                             }
@@ -75,7 +79,7 @@ namespace WPFAuthorization
                     }
                 }
 
-                return IsActivate;
+                return IsActivated;
             }
         }
 
